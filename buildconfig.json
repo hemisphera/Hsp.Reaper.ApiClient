@@ -1,0 +1,4 @@
+{
+    "SkipTests": true,
+    "ProjectsToPack": "Hsp.Reaper.ApiClient\\Hsp.Reaper.ApiClient.csproj"
+}
