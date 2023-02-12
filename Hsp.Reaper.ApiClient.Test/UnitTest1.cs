@@ -1,4 +1,4 @@
-namespace Reaper.Api.Client.Test
+namespace Hsp.Reaper.ApiClient.Test
 {
   public class UnitTest1
   {

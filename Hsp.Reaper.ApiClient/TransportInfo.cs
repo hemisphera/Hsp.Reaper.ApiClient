@@ -1,6 +1,6 @@
 ﻿using System.Xml;
 
-namespace Reaper.Api.Client;
+namespace Hsp.Reaper.ApiClient;
 
 public class TransportInfo
 {

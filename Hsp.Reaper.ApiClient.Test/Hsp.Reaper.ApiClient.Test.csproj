@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Reaper.ApiClient\Reaper.ApiClient.csproj" />
+    <ProjectReference Include="..\Hsp.Reaper.ApiClient\Hsp.Reaper.ApiClient.csproj" />
   </ItemGroup>
 
 </Project>

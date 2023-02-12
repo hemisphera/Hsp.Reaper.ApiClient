@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-namespace Reaper.Api.Client;
+namespace Hsp.Reaper.ApiClient;
 
 internal class ApiException : Exception
 {

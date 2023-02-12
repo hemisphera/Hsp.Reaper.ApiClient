@@ -1,4 +1,4 @@
-﻿namespace Reaper.Api.Client;
+﻿namespace Hsp.Reaper.ApiClient;
 
 public enum TransportPlayState
 {

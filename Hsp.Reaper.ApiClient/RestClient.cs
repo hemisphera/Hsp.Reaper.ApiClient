@@ -1,8 +1,7 @@
-﻿using System.Text;
-using System.Web;
+﻿using System.Web;
 using System.Xml;
 
-namespace Reaper.Api.Client;
+namespace Hsp.Reaper.ApiClient;
 
 internal class RestClient : IAsyncDisposable
 {

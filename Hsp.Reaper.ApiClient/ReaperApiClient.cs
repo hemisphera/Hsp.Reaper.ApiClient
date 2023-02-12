@@ -1,4 +1,6 @@
-﻿namespace Reaper.Api.Client;
+﻿using Hsp.Reaper.ApiClient.JobScheduler;
+
+namespace Hsp.Reaper.ApiClient;
 
 public class ReaperApiClient : IAsyncDisposable
 {
@@ -7,14 +9,14 @@ public class ReaperApiClient : IAsyncDisposable
 
   private HttpClient Client { get; }
 
-  private JobScheduler Scheduler { get; }
+  private JobScheduler.JobScheduler Scheduler { get; }
 
 
   public ReaperApiClient(Uri baseUri)
   {
     Client = new HttpClient();
     BaseUri = baseUri;
-    Scheduler = new JobScheduler();
+    Scheduler = new JobScheduler.JobScheduler();
     Scheduler.Start();
   }
 

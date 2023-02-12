@@ -1,4 +1,4 @@
-﻿namespace Reaper.Api.Client;
+﻿namespace Hsp.Reaper.ApiClient.JobScheduler;
 
 public class JobScheduler : IAsyncDisposable
 {
