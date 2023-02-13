@@ -8,7 +8,8 @@
     <PackageProjectUrl>https://github.com/hemisphera/Hsp.Reaper.ApiClient</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <RepositoryUrl>https://github.com/hemisphera/Hsp.Reaper.ApiClient</RepositoryUrl>
-    <Description>A client for the REAPER REST API exposed wia it's web browser control surface</Description>
+    <Description>A client for the REAPER REST API exposed wia its web browser control surface</Description>
+    <Authors>Hemisphera</Authors>
   </PropertyGroup>
 
   <ItemGroup>
