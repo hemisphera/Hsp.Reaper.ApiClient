@@ -41,6 +41,14 @@ public class ReaperApiClient : IAsyncDisposable
     return TransportInfo.Parse(await response.ReadLine());
   }
 
+  public async Task<BeatPosInfo?> GetBeatPos()
+  {
+    const string command = "BEATPOS";
+    await using var rc = CreateRestClient(command);
+    var response = await rc.GetTextResponse();
+    return BeatPosInfo.Parse(await response.ReadLine());
+  }
+
   public async Task<Marker[]> ListMarkers()
   {
     await using var rc = CreateRestClient("MARKER");
@@ -99,8 +107,7 @@ public class ReaperApiClient : IAsyncDisposable
 
   public async Task GoToMarker(int markerId)
   {
-    await using var rc = CreateRestClient($"SET/POS_STR/m{markerId}");
-    await rc.Send();
+    await GoTo($"m{markerId}");
   }
 
   public async Task GoToRegion(Region region)
@@ -110,9 +117,27 @@ public class ReaperApiClient : IAsyncDisposable
 
   public async Task GoToRegion(int regionId)
   {
-    await using var rc = CreateRestClient($"SET/POS_STR/r{regionId}");
+    await GoTo($"r{regionId}");
+  }
+
+
+  public async Task GoTo(string expression)
+  {
+    await using var rc = CreateRestClient($"SET/POS_STR/{expression}");
     await rc.Send();
   }
+
+  public async Task GoTo(double seconds)
+  {
+    await using var rc = CreateRestClient($"SET/POS/{XmlConvert.ToString(seconds)}");
+    await rc.Send();
+  }
+
+  public async Task GoTo(BeatInfo beats)
+  {
+    await GoTo($"{beats}");
+  }
+
 
   public async Task SendAction(int actionId)
   {

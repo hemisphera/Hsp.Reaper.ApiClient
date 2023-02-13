@@ -40,4 +40,22 @@ public class UnitTest1 : IClassFixture<ReaperTestFixture>
     }
   }
 
+  [Fact]
+  public async Task GeatBeatPos()
+  {
+    var cl = Fixture.Client;
+    var regions = await cl.ListRegions();
+    await cl.GoToRegion(regions.First(r => r.Name == "Second Song"));
+    var pos = await cl.GetBeatPos();
+    Assert.NotNull(pos);
+    Assert.Equal(4, pos.Numerator);
+    Assert.Equal(4, pos.Denominator);
+
+    await cl.GoToRegion(regions.First(r => r.Name == "Third Song"));
+    pos = await cl.GetBeatPos();
+    Assert.NotNull(pos);
+    Assert.Equal(5, pos.Numerator);
+    Assert.Equal(8, pos.Denominator);
+  }
+
 }
