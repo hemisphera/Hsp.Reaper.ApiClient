@@ -12,27 +12,48 @@ internal class ApiResponseReader
   }
 
 
-  public async Task<string> ReadLine()
+  public async Task<string?> ReadLine()
   {
-    return await Reader.ReadLineAsync() ?? String.Empty;
+    return await Reader.ReadLineAsync() ?? null;
   }
 
-  public async Task<string> ReadLineAndTest(string expectedValue)
+  public async Task<string?> ReadLineAndTest(string expectedValue)
   {
     var line = await ReadLine();
-    if (line != expectedValue) throw new InvalidOperationException($"'{expectedValue}' was expected.");
+    TestValue(line, expectedValue);
     return line;
   }
 
-  public async Task ReadUntil(string expectedLine, Action<string> action)
+  private static void TestValue(string? value, string expectedValue)
   {
-    string nextLine;
+    if (value != expectedValue) 
+      throw new InvalidOperationException($"'{expectedValue}' was expected but '{value}' was found.");
+  }
+
+  public async Task ReadUntil(Action<string> action)
+  {
+    await ReadUntil(null, action);
+  }
+
+  public async Task ReadUntil(string? expectedLine, Action<string> action)
+  {
+    string? nextLine;
     do
     {
       nextLine = await ReadLine();
-      if (nextLine != expectedLine)
+      if (nextLine != expectedLine && !String.IsNullOrEmpty(nextLine))
         action(nextLine);
     } while (nextLine != expectedLine);
+  }
+
+  public async Task<string[]> ReadLineAndSplit(string? expectedFirstToken = null)
+  {
+    var line = await ReadLine();
+    if (String.IsNullOrEmpty(line)) return Array.Empty<string>();
+    var parts = line.Split('\t');
+    if (!String.IsNullOrEmpty(expectedFirstToken))
+      TestValue(parts[0], expectedFirstToken);
+    return parts;
   }
 
 }

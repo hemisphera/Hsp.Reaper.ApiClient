@@ -1,0 +1,16 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=41bc7f2e_002Dc64f_002D417c_002D9db4_002Da3281ccf17c4/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="GetTrackCount #3" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::4B4E1AE4-BBBF-4E59-94AA-9972EEF71318::net6.0::Hsp.Reaper.ApiClient.Test.UnitTest1&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=718ba573_002D0959_002D44be_002D9374_002D5c68ac639ac0/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTrackCount" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::4B4E1AE4-BBBF-4E59-94AA-9972EEF71318::net6.0::Hsp.Reaper.ApiClient.Test.UnitTest1.GetTrackCount&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=8a320e24_002Dda92_002D406a_002D82bd_002D65a1720eaaf5/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="GetTrackCount #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;TestAncestor&gt;&#xD;
+    &lt;TestId&gt;xUnit::4B4E1AE4-BBBF-4E59-94AA-9972EEF71318::net6.0::Hsp.Reaper.ApiClient.Test.UnitTest1.GetTrackCount&lt;/TestId&gt;&#xD;
+  &lt;/TestAncestor&gt;&#xD;
+&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

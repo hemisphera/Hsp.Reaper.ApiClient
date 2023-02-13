@@ -5,8 +5,9 @@ namespace Hsp.Reaper.ApiClient;
 public class TransportInfo
 {
 
-  internal static TransportInfo Parse(string line)
+  internal static TransportInfo? Parse(string? line)
   {
+    if (String.IsNullOrEmpty(line)) return null;
     var parts = line.Split('\t');
     return new TransportInfo
     {

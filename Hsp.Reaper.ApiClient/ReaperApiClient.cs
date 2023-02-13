@@ -1,4 +1,6 @@
-﻿using Hsp.Reaper.ApiClient.JobScheduler;
+﻿using System.Runtime.CompilerServices;
+using System.Xml;
+using Hsp.Reaper.ApiClient.JobScheduler;
 
 namespace Hsp.Reaper.ApiClient;
 
@@ -11,13 +13,16 @@ public class ReaperApiClient : IAsyncDisposable
 
   private JobScheduler.JobScheduler Scheduler { get; }
 
+  private bool CanDisposeClient { get; }
 
-  public ReaperApiClient(Uri baseUri)
+
+  public ReaperApiClient(Uri baseUri, HttpClient? client = null)
   {
-    Client = new HttpClient();
+    Client = client ?? new HttpClient();
     BaseUri = baseUri;
     Scheduler = new JobScheduler.JobScheduler();
     Scheduler.Start();
+    CanDisposeClient = client == null;
   }
 
 
@@ -29,7 +34,7 @@ public class ReaperApiClient : IAsyncDisposable
   }
 
 
-  public async Task<TransportInfo> GetTransportInfo()
+  public async Task<TransportInfo?> GetTransportInfo()
   {
     await using var rc = CreateRestClient("TRANSPORT");
     var response = await rc.GetTextResponse();
@@ -59,6 +64,33 @@ public class ReaperApiClient : IAsyncDisposable
 
     return regions.ToArray();
   }
+
+
+  public async Task<int> GetTrackCount()
+  {
+    const string commandText = "NTRACK";
+    await using var rc = CreateRestClient(commandText);
+    var response = await rc.GetTextResponse();
+
+    var parts = await response.ReadLineAndSplit(commandText);
+    return XmlConvert.ToInt32(parts[1]);
+  }
+
+  public async Task<Track[]> ListTracks()
+  {
+    await using var rc = CreateRestClient("TRACK");
+    var response = await rc.GetTextResponse();
+
+    var tracks = new List<Track>();
+    await response.ReadUntil(line =>
+    {
+      var track = Track.Parse(line);
+      if (track != null) tracks.Add(track);
+    });
+
+    return tracks.ToArray();
+  }
+
 
   public async Task GoToMarker(Marker marker)
   {
@@ -108,7 +140,8 @@ public class ReaperApiClient : IAsyncDisposable
 
   public async ValueTask DisposeAsync()
   {
-    Client.Dispose();
+    if (CanDisposeClient)
+      Client.Dispose();
     await Task.CompletedTask;
   }
 
