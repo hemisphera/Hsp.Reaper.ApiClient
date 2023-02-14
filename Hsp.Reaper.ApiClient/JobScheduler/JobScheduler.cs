@@ -41,7 +41,7 @@ public class JobScheduler : IAsyncDisposable
   {
     while (true)
     {
-      await Task.Delay(50, Token.Token);
+      await Task.Delay(2, Token.Token);
       Token.Token.ThrowIfCancellationRequested();
 
       ScheduledJob[] tasksToRun;
