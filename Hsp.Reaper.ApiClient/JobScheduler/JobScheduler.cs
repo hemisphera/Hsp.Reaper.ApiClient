@@ -1,4 +1,4 @@
-﻿namespace Hsp.Reaper.ApiClient.JobScheduler;
+namespace Hsp.Reaper.ApiClient.JobScheduler;
 
 public class JobScheduler : IAsyncDisposable
 {
@@ -7,14 +7,12 @@ public class JobScheduler : IAsyncDisposable
 
   private SemaphoreSlim JobLock { get; } = new(1, 1);
 
-  private CancellationTokenSource Token { get; set; }
 
-  //private ILogger Logger { get; }
+  private CancellationTokenSource Token { get; set; }
 
 
   public JobScheduler()
   {
-    //Logger = logger;
   }
 
 
@@ -30,7 +28,6 @@ public class JobScheduler : IAsyncDisposable
     await JobLock.WaitAsync();
     Jobs.Add(job);
     JobLock.Release();
-    //Logger.Log(LogLevel.Information, "Job enqueue");
   }
 
   public void Start()

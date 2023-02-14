@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Xml;
+﻿using System.Xml;
 using Hsp.Reaper.ApiClient.JobScheduler;
 
 namespace Hsp.Reaper.ApiClient;
@@ -170,10 +169,17 @@ public class ReaperApiClient : IAsyncDisposable
     await Task.CompletedTask;
   }
 
-
   public async Task RegisterCallback(TimeSpan frequency, Func<Task> callback)
   {
-    await Scheduler.Enqueue(new ScheduledJob(frequency, callback));
+    await RegisterCallback(String.Empty, frequency, callback);
+  }
+
+  public async Task RegisterCallback(string name, TimeSpan frequency, Func<Task> callback)
+  {
+    await Scheduler.Enqueue(new ScheduledJob(frequency, callback)
+    {
+      Name = name
+    });
   }
 
 }
