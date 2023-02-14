@@ -3,6 +3,8 @@
 public class ScheduledJob
 {
 
+  private static readonly TimeSpan Precision = TimeSpan.FromMilliseconds(50);
+
   public DateTime NextExecution { get; private set; }
 
   public TimeSpan? Frequency { get; }
@@ -30,6 +32,9 @@ public class ScheduledJob
     : this(execution, callback)
   {
     Frequency = frequency;
+    if (Frequency != null)
+      if (Frequency.Value.TotalMilliseconds < Precision.TotalMilliseconds)
+        throw new NotSupportedException($"The minimum frequency is {Precision}");
   }
 
   public ScheduledJob(TimeSpan frequency, Func<Task> callback)
@@ -44,9 +49,14 @@ public class ScheduledJob
     RunCount += 1;
     try
     {
-      await Callback();
       if (Frequency != null)
-        NextExecution = DateTime.Now.Add(Frequency.Value);
+      {
+        // round next execution to compensate for any delays or execution laziness
+        var dateTime = DateTime.Now.Add(Frequency.Value);
+        var halfIntervalTicks = (Precision.Ticks + 1) >> 1;
+        NextExecution = dateTime.AddTicks(halfIntervalTicks - (dateTime.Ticks + halfIntervalTicks) % Precision.Ticks); 
+      }
+      await Callback();
     }
     finally
     {

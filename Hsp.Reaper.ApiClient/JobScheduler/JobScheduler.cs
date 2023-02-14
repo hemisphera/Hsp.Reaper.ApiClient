@@ -59,8 +59,7 @@ public class JobScheduler : IAsyncDisposable
         JobLock.Release();
       }
 
-      foreach (var task in tasksToRun)
-        task.Execute();
+      Task.WhenAll(tasksToRun.Select(task => task.Execute()));
     }
   }
 
