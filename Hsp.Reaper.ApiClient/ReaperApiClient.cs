@@ -166,7 +166,8 @@ public class ReaperApiClient : IAsyncDisposable
   {
     if (CanDisposeClient)
       Client.Dispose();
-    await Task.CompletedTask;
+    Scheduler.Stop();
+    await Scheduler.DisposeAsync();
   }
 
   public async Task RegisterCallback(TimeSpan frequency, Func<Task> callback)
