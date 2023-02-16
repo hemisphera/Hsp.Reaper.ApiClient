@@ -10,7 +10,7 @@ public class ReaperApiClient : IAsyncDisposable
 
   private HttpClient Client { get; }
 
-  private JobScheduler.JobScheduler Scheduler { get; }
+  public JobScheduler.JobScheduler Scheduler { get; }
 
   private bool CanDisposeClient { get; }
 
