@@ -1,6 +1,6 @@
-﻿namespace Hsp.Reaper.ApiClient.JobScheduler;
+﻿namespace Hsp.Reaper.ApiClient;
 
-public class ScheduledJob
+internal class ScheduledJob
 {
 
   private static readonly TimeSpan Precision = TimeSpan.FromMilliseconds(50);

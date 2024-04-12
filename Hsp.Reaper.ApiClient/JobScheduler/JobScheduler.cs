@@ -1,6 +1,6 @@
-namespace Hsp.Reaper.ApiClient.JobScheduler;
+namespace Hsp.Reaper.ApiClient;
 
-public class JobScheduler : IAsyncDisposable
+internal class JobScheduler : IAsyncDisposable
 {
 
   private List<ScheduledJob> Jobs { get; } = new();

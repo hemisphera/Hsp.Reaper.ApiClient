@@ -1,16 +1,14 @@
 ﻿using System.Xml;
-using Hsp.Reaper.ApiClient.JobScheduler;
 
 namespace Hsp.Reaper.ApiClient;
 
 public class ReaperApiClient : IAsyncDisposable
 {
-
   public Uri BaseUri { get; }
 
   private HttpClient Client { get; }
 
-  public JobScheduler.JobScheduler Scheduler { get; }
+  private JobScheduler? _scheduler;
 
   private bool CanDisposeClient { get; }
 
@@ -19,9 +17,13 @@ public class ReaperApiClient : IAsyncDisposable
   {
     Client = client ?? new HttpClient();
     BaseUri = baseUri;
-    Scheduler = new JobScheduler.JobScheduler();
-    Scheduler.Start();
     CanDisposeClient = client == null;
+  }
+
+  public void StartScheduler()
+  {
+    _scheduler = new JobScheduler();
+    _scheduler.Start();
   }
 
 
@@ -166,21 +168,26 @@ public class ReaperApiClient : IAsyncDisposable
   {
     if (CanDisposeClient)
       Client.Dispose();
-    Scheduler.Stop();
-    await Scheduler.DisposeAsync();
+
+    if (_scheduler != null)
+    {
+      _scheduler.Stop();
+      await _scheduler.DisposeAsync();
+    }
   }
 
   public async Task RegisterCallback(TimeSpan frequency, Func<Task> callback)
   {
-    await RegisterCallback(String.Empty, frequency, callback);
+    await RegisterCallback(string.Empty, frequency, callback);
   }
 
-  public async Task RegisterCallback(string name, TimeSpan frequency, Func<Task> callback)
+  public async Task<bool> RegisterCallback(string name, TimeSpan frequency, Func<Task> callback)
   {
-    await Scheduler.Enqueue(new ScheduledJob(frequency, callback)
+    if (_scheduler == null) return false;
+    await _scheduler.Enqueue(new ScheduledJob(frequency, callback)
     {
       Name = name
     });
+    return true;
   }
-
 }
