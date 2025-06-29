@@ -13,7 +13,7 @@ public class TransportInfo
     {
       State = (TransportPlayState)int.Parse(parts[1]),
       TimePosition = TimeSpan.FromSeconds(XmlConvert.ToDouble(parts[2])),
-      BeatPosition = BeatInfo.Parse(parts[4])
+      BeatPosition = BeatInfo.Parse(parts[5])
     };
   }
 
